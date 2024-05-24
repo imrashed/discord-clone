@@ -11,6 +11,9 @@ const nextConfig = {
   images: {
     domains: ["uploadthing.com", "utfs.io"]
   },
+  experimental: {
+    appDir: true,
+  },
   swcMinify: false
 };
 

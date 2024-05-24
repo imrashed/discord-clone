@@ -1,0 +1,26 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "Installing NVM"
+        - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+        - export NVM_DIR="$HOME/.nvm"
+        - bash -c 'source $NVM_DIR/nvm.sh'
+        - nvm install 20.13.0
+        - nvm use 20.13.0
+        - nvm alias default 20.13.0
+        - echo "Using Node.js version $(node -v)"
+        - npm install -g pnpm
+        - pnpm install
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: .next  # Ensure this matches your static export directory
+    files:
+      - '*/'
+  cache:
+    paths:
+      - node_modules/*/
+      - .next/cache/*/
