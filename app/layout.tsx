@@ -12,7 +12,7 @@ import { Open_Sans } from "next/font/google";
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Discord Clone",
+  title: "Raju Law Chat",
   description:
     "Discord Clone with Next.js, React.js, TailWindCSS & TypeScript."
 };
