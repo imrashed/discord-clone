@@ -1,12 +1,27 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useSocket } from "@/components/providers/socket-provider";
 import { Badge } from "@/components/ui/badge";
+import Notify from "@/utils/notification";
+import { AUTH } from "@/app/api/service/auth";
 
 export function SocketIndicatior() {
-  const { isConnected } = useSocket();
+  const { isConnected, socket } = useSocket();
+
+  const user = AUTH.getUserData();
+  const userData = user && JSON.parse(user + "");
+
+  useEffect(() => {
+    if (socket) {
+      socket.on(`newMessage`, (message: any) => {
+        if (userData?.email !== message?.member?.profile?.email) {
+          Notify(message?.content);
+        }
+      });
+    }
+  }, [socket]);
 
   if (!isConnected)
     return (
